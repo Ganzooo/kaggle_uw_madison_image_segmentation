@@ -133,3 +133,5 @@ outputs/
 wandb/
 multirun/
 mlruns/
+.vscode/
+.vscode/launch.json
