@@ -1,0 +1,5 @@
+name: uwmgi
+img_path: 
+num_classes: 3
+in_channels: 3
+num_workers:  4

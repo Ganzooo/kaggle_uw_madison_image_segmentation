@@ -1,0 +1,36 @@
+defaults:
+- dataset: uwmgi
+- model: unetplus #unetplus, unet, LevitUnet384
+- optimizer: adabelief  #adam
+#- hydra/sweeper: optuna #Optuna hyperparamater optimization program
+
+train_config:
+  seed:       101
+  debug:      True # set debug=False for Full Training
+  exp_name:   '2.5D'
+  comment:    ${model.name}_${model.backbone}_ep_${train_config.epochs}_fold_${folds.folds}
+  train_bs:   64
+  valid_bs:   64
+  #img_size:   [320, 384]
+  img_size:   [224, 224]
+  epochs:     20
+  device:     "cuda"
+
+folds: 
+  n_fold:      5
+  folds:       [0]
+
+losses:
+  name:         'FocalandTversky'
+#  name:        'BCEandTversky'
+#  name:        'UnifiedFocalLoss'
+
+# hydra:
+#   sweeper:
+#     direction: maximize
+#     study_name: uwwmgi
+#     storage: null
+#     n_trials: 20
+#     n_jobs: 2
+#     #sampler: "tpe"
+#     #seed: 101

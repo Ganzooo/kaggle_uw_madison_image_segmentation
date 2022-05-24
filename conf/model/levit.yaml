@@ -1,0 +1,2 @@
+name: 'LevitUnet384'
+backbone: 'Unet384'
