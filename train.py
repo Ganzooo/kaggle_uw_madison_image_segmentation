@@ -81,6 +81,9 @@ def train_one_epoch(cfg, model, optimizer, scheduler, criterion, dataloader, dev
     dataset_size = 0
     running_loss = 0.0
     
+    torch.cuda.empty_cache()
+    gc.collect()
+        
     pbar = tqdm(enumerate(dataloader), total=len(dataloader), desc='Train:')
     for step, (images, masks) in pbar:         
         images = images.to(device, dtype=torch.float)
@@ -116,8 +119,7 @@ def train_one_epoch(cfg, model, optimizer, scheduler, criterion, dataloader, dev
         pbar.set_postfix(epoch=f'{epoch}',train_loss=f'{epoch_loss:0.4f}',
                         lr=f'{current_lr:0.5f}',
                         gpu_mem=f'{mem:0.2f} GB')
-        torch.cuda.empty_cache()
-        gc.collect()
+        
         
         if cfg.train_config.debug and step < 30:
             _imgs  = images.cpu().detach()
@@ -171,7 +173,7 @@ def valid_one_epoch(cfg, model, dataloader, criterion, device, epoch, optimizer)
                         lr=f'{current_lr:0.5f}',
                         gpu_memory=f'{mem:0.2f} GB')
         
-        if cfg.train_config.debug:
+        if cfg.train_config.debug and step < 0:
             _imgs  = images.cpu().detach()
             
             #_y_pred = (nn.Sigmoid()(y_pred)>0.5).double()

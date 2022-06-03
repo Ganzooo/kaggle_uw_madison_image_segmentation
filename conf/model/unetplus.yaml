@@ -1,2 +1,2 @@
 name: 'UnetPlusPlus'
-backbone: 'efficientnet-b4'
+backbone: 'efficientnet-b7'

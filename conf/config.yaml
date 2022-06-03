@@ -6,13 +6,13 @@ defaults:
 
 train_config:
   seed:       101
-  debug:      True # set debug=False for Full Training
+  debug:      False # set debug=False for Full Training
   exp_name:   '2.5D'
-  comment:    ${model.name}_${model.backbone}_ep_${train_config.epochs}_fold_${folds.folds}
+  comment:    ${model.name}_${model.backbone}_ep_${train_config.epochs}_fold_${folds.folds}_op_${optimizer.name}_lr_${optimizer.lr}_size_${train_config.img_size[0]}
   train_bs:   64
   valid_bs:   64
-  #img_size:   [320, 384]
-  img_size:   [224, 224]
+  img_size:   [512, 512]
+  #img_size:   [224, 224]
   epochs:     20
   device:     "cuda"
 
